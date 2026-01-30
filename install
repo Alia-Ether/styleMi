@@ -1,11 +1,19 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-## Author  : Aditya Shakya
-## Twitter : @adi1090x
-## Github  : @adi1090x
-## Reddit  : @adi1090x
 
-## termux-style installer script
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Original project: termux-style
+# Authors: Aditya Shakya, Fredrik Fornwall
+#
+# Modified by: Alia Ether
+# Realme Edition
+# 2026
+
+
+
+## Mi installer script
+## Author : Frontend & LED (𝙰𝚕𝚒𝚊 𝙴𝚝𝚑𝚎𝚛 𖤍)
 
 ## ANSI Colors (FG & BG)
 RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
@@ -21,93 +29,86 @@ DIR="$(pwd)"
 
 ## Banner
 banner () {
-    clear
-    echo "
-    ${BLUE}┌──────────────────────────────────────────────────┐
-    ${BLUE}│${RED}░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█${ORANGE}░░░░░${GREEN}█▀▀░▀█▀░█░█░█░░░█▀▀░░${BLUE}│
-    ${BLUE}│${RED}░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄${ORANGE}░▄▄▄${RED}░${GREEN}▀▀█░░█░░░█░░█░░░█▀▀░░${BLUE}│
-    ${BLUE}│${RED}░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀${ORANGE}░░░░░${GREEN}▀▀▀░░▀░░░▀░░▀▀▀░▀▀▀░░${BLUE}│
-    ${BLUE}└──────────────────────────────────────────────────┘
-    ${BLUE}[${RED}*${BLUE}] ${ORANGE}By- Aditya Shakya ${RED}//${ORANGE} adi1090x"
+clear
+echo "
+${BLUE}
+
+⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⣰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡀⠀⢀⠒⠑⣴⣦⣾⣧⣤⢀⡤⠀⠀⠀⡀⠀⠀⠀
+⠀⠀⠀⠀⢀⠀⢀⡘⠉⠁⣰⣾⣿⣿⣿⣿⣿⣿⣷⢀⡤⠊⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢱⠊⡄⠒⠾⣿⣿⣿⣿⣿⣿⠿⠛⢹⣿⣯⣤⠤⠄⠀⠀
+⠀⠀⠀⠒⢦⠂⠀⣇⠀⠸⠟⢈⣿⣿⡁⠺⠗⠀⣸⣿⣿⣃⠀⠀⠀⠀
+⠀⠀⠀⠀⢘⢀⣼⠻⢷⣶⣶⣿⣿⣿⣿⣶⣶⣾⠟⣻⣿⡯⠁⠀⠀⠀
+⠀⠀⠀⠉⠱⢾⣿⡀⠀⠈⠉⠙⠛⠛⠛⠉⠉⠀⢀⣿⣿⠿⠛⠒⠀⠀
+⠀⠀⠀⠀⠔⢛⣿⣷⡈⠒⠀⠀⠀⠔⠁⠊⠒⢈⣾⣿⡏⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠜⠛⠿⣿⣶⣤⣀⣀⣀⣀⣤⣶⣿⠿⣿⠉⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡸⠛⢉⡿⠻⠟⣿⢿⡟⣏⠁⠀⠘⠄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠁⠀⠃⠘⡀⠀⠀
+
+███████╗██╗
+██╔════╝██║
+█████╗  ██║
+██╔══╝  ██║
+██║     ███████╗
+╚═╝     ╚══════╝
+
+${BLUE}[${RED}*${BLUE}] ${ORANGE}Mi Style Installer ${RED}//${ORANGE} Frontend & LED
+"
 }
 
-## Script Termination
-exit_on_signal_SIGINT () {
-    { printf "\n\n%s\n" "    ${BLUE}[${RED}*${BLUE}] ${RED}Script interrupted." 2>&1; echo; reset_color; }
-    exit 0
-}
-
-exit_on_signal_SIGTERM () {
-    { printf "\n\n%s\n" "    ${BLUE}[${RED}*${BLUE}] ${RED}Script terminated." 2>&1; echo; reset_color; }
-    exit 0
-}
-
-trap exit_on_signal_SIGINT SIGINT
-trap exit_on_signal_SIGTERM SIGTERM
+## Signals
+trap 'echo -e "\n${RED}Interrupted"; reset_color; exit 0' SIGINT
+trap 'echo -e "\n${RED}Terminated"; reset_color; exit 0' SIGTERM
 
 ## Reset terminal colors
 reset_color() {
-	tput sgr0   # reset attributes
-	tput op     # reset color
-    return
+tput sgr0
+tput op
 }
 
 ## Prerequisite
 prerequisite() {
-	{ echo; echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Installing Dependencies..."${CYAN}; echo; }
-	if [[ (-f $PREFIX/bin/wget) && (-f $PREFIX/bin/tput) ]]; then
-		{ echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Dependencies are already Installed!"; }
-	else
-		{ pkg update -y; pkg install -y wget ncurses-utils; }
-		(type -p wget tput &> /dev/null) && { echo; echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Dependencies are succesfully installed!"; } || { echo; echo "    ${BLUE}[${RED}!${BLUE}] ${RED}Error Occured, failed to install dependencies."; echo; reset_color; exit 1; }
-	fi
+echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Installing Dependencies..."
+pkg update -y
+pkg install -y wget ncurses-utils
 }
 
-## Install termux-style
-install_tstyle () {
-	echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Installing termux-style..."
-	# Delete old files
-	if [[ (-L $PREFIX/bin/termux-style) && (-d $PREFIX/share/termux-style) ]]; then
-		echo "    ${BLUE}[${RED}*${BLUE}] ${RED}Deleting files from previous installation..."${BLUE}
-		{ rm -r $PREFIX/bin/termux-style $PREFIX/share/termux-style; echo; }
-	fi
-	# termux config dir
-	if [[ ! -d $TERMUX_DIR ]]; then
-		mkdir $TERMUX_DIR
-	else
-		cp -r $TERMUX_DIR{,.backup}
-	fi
-	# Coping files
-	{ echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Coping files in ${GREEN}$PREFIX/share ${ORANGE}directory..."${BLUE}; }
-	{ mkdir $PREFIX/share/termux-style; cp -r $DIR/colors $PREFIX/share/termux-style; cp -r $DIR/fonts $PREFIX/share/termux-style; cp -r $DIR/tstyle $PREFIX/share/termux-style; }
-	{ chmod +x $PREFIX/share/termux-style/tstyle; ln -s $PREFIX/share/termux-style/tstyle $PREFIX/bin/termux-style; }
+## Install Mi
+install_mi () {
 
-	# Verify files 
-	if [[ (-L $PREFIX/bin/termux-style) && (-d $PREFIX/share/termux-style) ]]; then
-		{ echo; echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Successfully Installed."; }
-		{ echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Now You Can Run This Program By Just typing ${MAGENTA}termux-style${GREEN}."; echo; }
-		{ reset_color; exit 0; }
-	else
-		{ echo "    ${BLUE}[${RED}!${BLUE}] ${RED}Error Occured."; echo; reset_color; exit 1; }
-	fi
+echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Installing Mi..."
+
+if [[ (-L $PREFIX/bin/Mi) && (-d $PREFIX/share/Mi) ]]; then
+rm -r $PREFIX/bin/Mi $PREFIX/share/Mi
+fi
+
+[[ ! -d $TERMUX_DIR ]] && mkdir $TERMUX_DIR || cp -r $TERMUX_DIR{,.backup}
+
+mkdir -p $PREFIX/share/Mi
+cp -r $DIR/colors $PREFIX/share/Mi
+cp -r $DIR/fonts  $PREFIX/share/Mi
+cp -r $DIR/tstyle $PREFIX/share/Mi
+
+chmod +x $PREFIX/share/Mi/tstyle
+ln -s $PREFIX/share/Mi/tstyle $PREFIX/bin/Mi
+
+echo "    ${GREEN}Installed Successfully!"
+echo "    Run with: ${MAGENTA}Mi"
+
+exit 0
 }
 
 ## Main
 main () {
-	banner
-	prerequisite
-	# Check for previous installation
-	if [[ (-L $PREFIX/bin/termux-style) && (-d $PREFIX/share/termux-style) ]]; then
-		{ echo; echo "    ${BLUE}[${RED}!${BLUE}] ${MAGENTA}termux-style ${GREEN}is already installed."; }
-		{ read -p "    ${BLUE}[${RED}?${BLUE}] ${ORANGE}Do you wanna re-install it? (y/n): ${GREEN}"; echo; }
-		if [[ "$REPLY" =~ ^[y/Y]$ ]]; then
-			install_tstyle
-		else
-			{ reset_color; exit; }
-		fi
-	else
-		{ echo; install_tstyle; }
-	fi
+banner
+prerequisite
+
+if [[ (-L $PREFIX/bin/Mi) && (-d $PREFIX/share/Mi) ]]; then
+read -p "Reinstall Mi? (y/n): " ans
+[[ $ans =~ ^[yY]$ ]] && install_mi || exit
+else
+install_mi
+fi
 }
 
 main

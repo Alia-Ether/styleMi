@@ -1,11 +1,19 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-## Author  : Aditya Shakya
-## Twitter : @adi1090x
-## Github  : @adi1090x
-## Reddit  : @adi1090x
 
-## termux-style uninstall script
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Original project: termux-style
+# Authors: Aditya Shakya, Fredrik Fornwall
+#
+# Modified by: Alia Ether
+# Realme Edition
+# 2026
+
+
+
+## Mi uninstall script
+## Author : Frontend & LED (𝙰𝚕𝚒𝚊 𝙴𝚝𝚑𝚎𝚛 𖤍)
 
 ## ANSI Colors (FG & BG)
 RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
@@ -19,55 +27,73 @@ PREFIX='/data/data/com.termux/files/usr'
 
 ## Banner
 banner () {
-    clear
-    echo "
-    ${BLUE}┌──────────────────────────────────────────────────┐
-    ${BLUE}│${RED}░▀█▀░█▀▀░█▀▄░█▄█░█░█░█░█${ORANGE}░░░░░${GREEN}█▀▀░▀█▀░█░█░█░░░█▀▀░░${BLUE}│
-    ${BLUE}│${RED}░░█░░█▀▀░█▀▄░█░█░█░█░▄▀▄${ORANGE}░▄▄▄${RED}░${GREEN}▀▀█░░█░░░█░░█░░░█▀▀░░${BLUE}│
-    ${BLUE}│${RED}░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀${ORANGE}░░░░░${GREEN}▀▀▀░░▀░░░▀░░▀▀▀░▀▀▀░░${BLUE}│
-    ${BLUE}└──────────────────────────────────────────────────┘
-    ${BLUE}[${RED}*${BLUE}] ${ORANGE}By- Aditya Shakya ${RED}//${ORANGE} adi1090x"
+clear
+echo "
+${BLUE}
+
+⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⣰⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡀⠀⢀⠒⠑⣴⣦⣾⣧⣤⢀⡤⠀⠀⠀⡀⠀⠀⠀
+⠀⠀⠀⠀⢀⠀⢀⡘⠉⠁⣰⣾⣿⣿⣿⣿⣿⣿⣷⢀⡤⠊⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢱⠊⡄⠒⠾⣿⣿⣿⣿⣿⣿⠿⠛⢹⣿⣯⣤⠤⠄⠀⠀
+⠀⠀⠀⠒⢦⠂⠀⣇⠀⠸⠟⢈⣿⣿⡁⠺⠗⠀⣸⣿⣿⣃⠀⠀⠀⠀
+⠀⠀⠀⠀⢘⢀⣼⠻⢷⣶⣶⣿⣿⣿⣿⣶⣶⣾⠟⣻⣿⡯⠁⠀⠀⠀
+⠀⠀⠀⠉⠱⢾⣿⡀⠀⠈⠉⠙⠛⠛⠛⠉⠉⠀⢀⣿⣿⠿⠛⠒⠀⠀
+⠀⠀⠀⠀⠔⢛⣿⣷⡈⠒⠀⠀⠀⠔⠁⠊⠒⢈⣾⣿⡏⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠜⠛⠿⣿⣶⣤⣀⣀⣀⣀⣤⣶⣿⠿⣿⠉⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⡸⠛⢉⡿⠻⠟⣿⢿⡟⣏⠁⠀⠘⠄⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠁⠀⠃⠘⡀⠀⠀
+
+███████╗██╗
+██╔════╝██║
+█████╗  ██║
+██╔══╝  ██║
+██║     ███████╗
+╚═╝     ╚══════╝
+
+${BLUE}[${RED}*${BLUE}] ${ORANGE}Mi Uninstaller ${RED}//${ORANGE} Frontend & LED
+"
 }
 
-## Script Termination
-exit_on_signal_SIGINT () {
-    { printf "\n\n%s\n" "    ${BLUE}[${RED}*${BLUE}] ${RED}Script interrupted." 2>&1; echo; reset_color; }
-    exit 0
-}
-
-exit_on_signal_SIGTERM () {
-    { printf "\n\n%s\n" "    ${BLUE}[${RED}*${BLUE}] ${RED}Script terminated." 2>&1; echo; reset_color; }
-    exit 0
-}
-
-trap exit_on_signal_SIGINT SIGINT
-trap exit_on_signal_SIGTERM SIGTERM
+## Signals
+trap 'echo -e "\n${RED}Interrupted"; reset_color; exit 0' SIGINT
+trap 'echo -e "\n${RED}Terminated"; reset_color; exit 0' SIGTERM
 
 ## Reset terminal colors
 reset_color() {
-	tput sgr0   # reset attributes
-	tput op     # reset color
-    return
+tput sgr0
+tput op
 }
 
-## Check for previous installation
-uninstall_tstyle () {
-	banner
-	if [[ (-L $PREFIX/bin/termux-style) && (-d $PREFIX/share/termux-style) ]]; then
-		{ echo; echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Uninstalling termux-style..."; echo; }
-		{ echo "    ${BLUE}[${RED}*${BLUE}] ${RED}Removing files from $PREFIX/share dir."${BLUE}; }
-		{ rm -r $PREFIX/share/termux-style $PREFIX/bin/termux-style; }
-		# Verify files
-		if [[ (! -L $PREFIX/bin/termux-style) && (! -d $PREFIX/share/termux-style) ]]; then
-			{ echo; echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Uninstalled Successfully."; echo; }
-			{ reset_color; exit 0; }
-		else
-			{ echo "    ${BLUE}[${RED}!${BLUE}] ${RED}Error Occured."; echo; reset_color; exit 1; }
-		fi
-	else
-		{ echo; echo "    ${BLUE}[${RED}!${BLUE}] ${MAGENTA}termux-style ${GREEN}is not installed."; echo; }
-		{ reset_color; exit 0; }
-	fi
+## Uninstall Mi
+uninstall_mi () {
+
+banner
+
+if [[ (-L $PREFIX/bin/Mi) && (-d $PREFIX/share/Mi) ]]; then
+
+echo
+echo "    ${BLUE}[${RED}*${BLUE}] ${ORANGE}Uninstalling Mi..."
+echo "    ${BLUE}[${RED}*${BLUE}] ${RED}Removing files from $PREFIX/share"
+
+rm -r $PREFIX/share/Mi $PREFIX/bin/Mi
+
+if [[ (! -L $PREFIX/bin/Mi) && (! -d $PREFIX/share/Mi) ]]; then
+echo
+echo "    ${BLUE}[${RED}*${BLUE}] ${GREEN}Uninstalled Successfully."
+reset_color
+exit 0
+else
+echo "    ${BLUE}[${RED}!${BLUE}] ${RED}Error Occured."
+reset_color
+exit 1
+fi
+
+else
+echo
+echo "    ${BLUE}[${RED}!${BLUE}] ${MAGENTA}Mi ${GREEN}is not installed."
+reset_color
+exit 0
+fi
 }
 
-uninstall_tstyle
+uninstall_mi
