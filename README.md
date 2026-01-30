@@ -44,12 +44,18 @@ Follow the steps below -
 
 ```bash
 cd $HOME
+```
+```bash
+git clone https://github.com/Alia-Ether/styleMi.git
+```
 
-git clone https://github.com/adi1090x/termux-style
-
+```bash
 cd styleMi
+```
 
+```bash
 ./install
+```
 
 
 
